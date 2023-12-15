@@ -11,11 +11,13 @@ namespace LoginRegisterIdentity.Controllers
     {
         private readonly IProfileRepository _profileRepository;
 		private readonly UserManager<AppUser> _userManager;
+		private readonly SignInManager<AppUser> _signInManager;
 
-		public ProfileController(IProfileRepository profileRepository, UserManager<AppUser> userManager)
+		public ProfileController(IProfileRepository profileRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             this._profileRepository = profileRepository;
 			this._userManager = userManager;
+			this._signInManager = signInManager;
 		}
        
 		[HttpGet]
@@ -62,5 +64,19 @@ namespace LoginRegisterIdentity.Controllers
 			//return RedirectToAction("Index", "Home");
 			return View(profileVM);
         }
+		[HttpPost, Authorize]
+		public async Task<IActionResult> Delete()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+			{
+				return RedirectToAction("Index", "Home");
+
+			}
+			await _userManager.DeleteAsync(user);
+			await _signInManager.SignOutAsync();
+			
+			return RedirectToAction("Index", "Home");
+		}
     }
 }

@@ -1,3 +1,4 @@
+using LoginRegisterIdentity.Interfaces;
 using LoginRegisterIdentity.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -5,23 +6,31 @@ using System.Diagnostics;
 
 namespace LoginRegisterIdentity.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
 
         
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductRepository _productRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductRepository productRepository)
         {
-            _logger = logger;
+           _logger = logger;
+           _productRepository = productRepository;
         }
-
-        public IActionResult Index()
+        //public async IActionResult Index()
+        //{
+            
+        //    return View();
+        //}
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _productRepository.GetAllProductsAsync();
+            return View(products);
         }
-
+        //[Authorize]
         public IActionResult Privacy()
         {
             return View();

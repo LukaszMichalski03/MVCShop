@@ -135,3 +135,4 @@ C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8
 C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8.0\LoginRegisterIdentity.pdb
 C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8.0\LoginRegisterIdentity.genruntimeconfig.cache
 C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8.0\ref\LoginRegisterIdentity.dll
+C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8.0\LoginRegisterIdentity.sourcelink.json

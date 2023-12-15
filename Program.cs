@@ -19,6 +19,7 @@ namespace LoginRegisterIdentity
             
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(connectionString)
                 );

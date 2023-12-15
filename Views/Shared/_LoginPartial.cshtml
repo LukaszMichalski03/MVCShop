@@ -7,6 +7,7 @@
 *@
 @{
 }
+
 <ul class="navbar-nav">
     @if (signInManager.IsSignedIn(User))
     {
@@ -16,13 +17,13 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                    <a class="dropdown-item" href="@Url.Action("Index", "Profile", new { id = User.FindFirstValue(ClaimTypes.NameIdentifier) })">
+                    <a class="dropdown-item" asp-action="Index" asp-controller="Profile">
                         Profile
                     </a>
-                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account" >
+                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account">
                         Logout
                     </a>
-                    
+
                 </li>
             </ul>
         </li>
@@ -37,3 +38,4 @@
         </li>
     }
 </ul>
+
