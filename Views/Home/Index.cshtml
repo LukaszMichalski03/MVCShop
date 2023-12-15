@@ -22,8 +22,12 @@
                             <p class="card-text">@product.Name</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+
+                                    <button type="button" class="btn btn-sm btn-outline-dark" onclick="location.href='@Url.Action("Details", "Products", new { id = product.Id })'">Details</button>
+                                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Add to cart
+                                    </button>
                                 </div>
                                 <small class="text-muted">@product.Price zł</small>
                             </div>

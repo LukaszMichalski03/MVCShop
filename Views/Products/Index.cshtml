@@ -26,8 +26,9 @@
                                 <p class="card-text">@product.Name</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='@Url.Action("Details", "Products", new { id = product.Id })'">Details View</button>
+                                        
                                     </div>
                                     <small class="text-muted">@product.Price zł</small>
                                 </div>

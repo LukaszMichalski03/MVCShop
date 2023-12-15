@@ -32,6 +32,16 @@ namespace LoginRegisterIdentity.Controllers
             var products = await _productRepository.GetUsersProductsAsync(AppUserId);
             return View(products);
         }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            Product product =await _productRepository.GetProductByIdAsync(id);
+            if(product == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(product);
+        }
         public IActionResult Add()
         {
             return View();
