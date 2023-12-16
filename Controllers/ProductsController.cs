@@ -42,6 +42,22 @@ namespace LoginRegisterIdentity.Controllers
             }
             return View(product);
         }
+        public IActionResult Delete()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int productId)
+        {
+            Product product = await _productRepository.GetProductByIdAsync(productId);
+            if (product == null)
+            {
+                return RedirectToAction("Index", "Products");
+            }
+            _productRepository.Delete(product);
+
+            return RedirectToAction("Index", "Products");
+        }
         public IActionResult Add()
         {
             return View();

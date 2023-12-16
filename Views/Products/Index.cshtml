@@ -26,6 +26,10 @@
                                 <p class="card-text">@product.Name</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
+                                        <form method="post" action="@Url.Action("Delete", "Products")">
+                                            <input type="hidden" name="productId" value="@product.Id" />
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                        </form>
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                                         <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='@Url.Action("Details", "Products", new { id = product.Id })'">Details View</button>
                                         
