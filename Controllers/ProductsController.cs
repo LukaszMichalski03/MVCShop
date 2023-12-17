@@ -1,4 +1,5 @@
 ﻿using LoginRegisterIdentity.Interfaces;
+using LoginRegisterIdentity.Migrations;
 using LoginRegisterIdentity.Models;
 using LoginRegisterIdentity.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -46,6 +47,44 @@ namespace LoginRegisterIdentity.Controllers
         {
             return View();
         }
+        [HttpGet] 
+        public async Task<IActionResult> Edit(int id)
+        {
+            Product product = await _productRepository.GetProductByIdAsync(id);
+            if (product == null)
+            {
+                return RedirectToAction("Index", "Products");
+            }
+            ProductVM productVM = new ProductVM()
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                StockQuantity = product.StockQuantity,
+            };
+            return View(productVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id,ProductVM addProductVM)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            Product product = new Product()
+            {
+                Name = addProductVM.Name,
+                Description = addProductVM.Description,
+                Price = addProductVM.Price,
+                StockQuantity = addProductVM.StockQuantity,
+                Id = id,
+                AppUserId = user.Id
+            };
+            var result = _productRepository.Update(product);
+            if(result == true) return RedirectToAction("Index", "Products");
+            else
+            {
+                TempData["ErrorMessage"] = "Nie udało się edytować.";
+                return RedirectToAction("Index", "Products");
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> Delete(int productId)
         {
@@ -63,7 +102,7 @@ namespace LoginRegisterIdentity.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddProductVM addProductVM)
+        public async Task<IActionResult> Add(ProductVM addProductVM)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)

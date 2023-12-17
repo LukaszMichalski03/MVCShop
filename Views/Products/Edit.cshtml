@@ -1,4 +1,5 @@
-﻿@using LoginRegisterIdentity.ViewModels
+﻿
+@using LoginRegisterIdentity.ViewModels
 @model ProductVM
 
 @*
@@ -6,11 +7,11 @@
 *@
 @{
 }
-<form method="post" asp-action="Add" enctype="multipart/form-data">
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
 
 	<div class="container ">
 		<div class="row gutters ">
-			
+
 			<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 				<div class="card h-100">
 					<div class="card-body">
@@ -35,7 +36,7 @@
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div class="form-group">
 									<label asp-for="Price">Price</label>
-									<input asp-for="Price" class="form-control" placeholder="Enter Price" >
+									<input asp-for="Price" class="form-control" placeholder="Enter Price">
 									<span asp-validation-for="Price" class="text-danger"></span>
 								</div>
 							</div>
@@ -80,7 +81,7 @@
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<div class="text-right">
 									<button type="button" id="submit" name="submit" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Home")'">Cancel</button>
-									<button type="submit" id="submit" name="submit" class="btn btn-primary" asp-action="Add">Update</button>
+									<button type="submit" id="submit" name="submit" class="btn btn-primary" asp-action="Edit">Update</button>
 								</div>
 							</div>
 						</div>

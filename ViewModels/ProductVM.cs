@@ -2,13 +2,13 @@
 
 namespace LoginRegisterIdentity.ViewModels
 {
-    public class AddProductVM
+    public class ProductVM
     {
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         [Required]
-        public int Price { get; set; }
+        public double Price { get; set; }
         public int StockQuantity { get; set; }
 
     }
