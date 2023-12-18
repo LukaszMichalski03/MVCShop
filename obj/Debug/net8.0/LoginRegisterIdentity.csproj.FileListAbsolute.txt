@@ -136,3 +136,6 @@ C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8
 C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8.0\LoginRegisterIdentity.genruntimeconfig.cache
 C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8.0\ref\LoginRegisterIdentity.dll
 C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8.0\LoginRegisterIdentity.sourcelink.json
+C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\bin\Debug\net8.0\Azure.Storage.Blobs.dll
+C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\bin\Debug\net8.0\Azure.Storage.Common.dll
+C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\bin\Debug\net8.0\System.IO.Hashing.dll
