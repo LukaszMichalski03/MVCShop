@@ -18,13 +18,30 @@ namespace LoginRegisterIdentity.Repositories
 			_context.Add(product);
 			return Save();
 		}
+		public bool AddImage(Image image)
+		{
+			_context.Add(image);
+			return Save();
+		}
 
 		public bool Delete(Product product)
 		{
 			_context.Remove(product);
 			return Save();
 		}
+		public bool DeleteImage(Image image)
+		{
+			_context.Remove(image);
+			return Save();
+		}
+		public async Task<IEnumerable<string>> GetProductsImagesAsync(int productId)
+		{
+			var imageLinks = await _context.Images.Where(x => x.ProductId == productId)
+				.Select(image => image.ImageLink)
+				.ToListAsync();
 
+			return imageLinks;
+		}
 		public async Task<IEnumerable<Product>> GetAllProductsAsync()
 		{
             return await _context.Products.ToListAsync();
@@ -39,10 +56,14 @@ namespace LoginRegisterIdentity.Repositories
 		{
 			return _context.Products.FirstOrDefaultAsync(x => x.Id == id);
 		}
+		public async Task<Image> GetImageBylink(string link)
+		{
+			return await _context.Images.FirstOrDefaultAsync(x => x.ImageLink == link);
+		}
 
-        
 
-        public bool Save()
+
+		public bool Save()
 		{
 			var saved = _context.SaveChanges();
 			return saved > 0;

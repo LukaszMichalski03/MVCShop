@@ -9,15 +9,15 @@
 }
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
 
-	<div class="container ">
-		<div class="row gutters ">
+	<div class="container  ">
+		<div class="row  ">
 
-			<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+			<div class="">
 				<div class="card h-100">
 					<div class="card-body">
 						<div class="row gutters">
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<h6 class="mb-2 text-primary">Personal Details</h6>
+								<h6 class="mb-2 text-primary">Product Details</h6>
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div class="form-group">
@@ -48,40 +48,20 @@
 								</div>
 							</div>
 						</div>
-						@* <div class="row gutters">
-						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						<h6 class="mt-3 mb-2 text-primary">Address</h6>
+						
+						<div class="form-row form-group mt-4">
+							<h2 class="col">Add Images</h2>
+							<div class="col">
+								<input asp-for="Images" type="file" class="form-control form-control-lg" placeholder="Image" />
+								<span asp-validation-for="Images" class="text-danger"></span>
+							</div>
 						</div>
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="form-group">
-						<label for="Street">Street</label>
-						<input type="name" class="form-control" id="Street" placeholder="Enter Street">
-						</div>
-						</div>
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="form-group">
-						<label for="ciTy">City</label>
-						<input type="name" class="form-control" id="ciTy" placeholder="Enter City">
-						</div>
-						</div>
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="form-group">
-						<label for="sTate">State</label>
-						<input type="text" class="form-control" id="sTate" placeholder="Enter State">
-						</div>
-						</div>
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="form-group">
-						<label for="zIp">Zip Code</label>
-						<input type="text" class="form-control" id="zIp" placeholder="Zip Code">
-						</div>
-						</div>
-						</div> *@
+						
 						<div class="row gutters m-4">
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<div class="text-right">
-									<button type="button" id="submit" name="submit" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Home")'">Cancel</button>
-									<button type="submit" id="submit" name="submit" class="btn btn-primary" asp-action="Edit">Update</button>
+									<button type="button" id="submit" name="submit" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Products")'">Cancel</button>
+									<button type="submit" id="submit" name="submit" class="btn btn-primary" asp-action="Edit">Save Changes</button>
 								</div>
 							</div>
 						</div>
@@ -95,10 +75,11 @@
 		body {
 			margin: 0;
 			padding-top: 0;
+			padding-bottom: 0;
 			color: #2e323c;
 			background: #f5f6fa;
 			position: relative;
-			height: 100vh;
+			height: auto;
 		}
 
 		.container {
@@ -168,3 +149,43 @@
 		}
 	</style>
 </form>
+
+<div class="album  bg-light m-5">
+		@if (Model.ImagesLinks == null || !Model.ImagesLinks.Any())
+			{
+				<h2>There are no images added</h2>
+			}
+		else
+		{
+		<div class="container p-3">
+			<h2 class="m-4">Images of your product</h2>
+			<div class="row ">
+				@foreach (var product in Model.ImagesLinks)
+				{
+					<div class="col-md-4">
+						<div class="card mb-4 box-shadow">
+						<img class="card-img-top" src="@product" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
+
+							<div class="card-body">
+								<p class="card-text">nazwa</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+										<form method="post" action="@Url.Action("DeleteImage", "Products")">
+											<input type="hidden" name="productId" value="@product" />
+											<button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
+										</form>
+											
+
+									</div>
+										
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+
+			</div>
+		</div>
+		}
+</div>
+		

@@ -11,6 +11,6 @@ namespace LoginRegisterIdentity.Models
         public string? Name { get; set; }
         public string? Address { get; set; }
         public ICollection<Product> ListedProducts { get; set; }
-        public string ProfilePictureLink { get; set; }
+        public string? ProfilePictureLink { get; set; }
     }
 }

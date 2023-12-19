@@ -12,13 +12,16 @@ namespace LoginRegisterIdentity.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<AppUser> _userManager;
         private readonly IProductRepository _productRepository;
+		private readonly IPhotoService _photoService;
 
-        public ProductsController(ILogger<HomeController> logger, UserManager<AppUser> userManager, IProductRepository productRepository)
+		public ProductsController(ILogger<HomeController> logger, UserManager<AppUser> userManager, IProductRepository productRepository
+            , IPhotoService photoService)
         {
             _logger = logger;
             this._userManager = userManager;
             _productRepository = productRepository;
-        }
+			this._photoService = photoService;
+		}
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -55,12 +58,15 @@ namespace LoginRegisterIdentity.Controllers
             {
                 return RedirectToAction("Index", "Products");
             }
+            var images = await _productRepository.GetProductsImagesAsync(id);
             ProductVM productVM = new ProductVM()
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
                 StockQuantity = product.StockQuantity,
+                ImagesLinks = images
             };
             return View(productVM);
         }
@@ -77,6 +83,9 @@ namespace LoginRegisterIdentity.Controllers
                 Id = id,
                 AppUserId = user.Id
             };
+
+            
+
             var result = _productRepository.Update(product);
             if(result == true) return RedirectToAction("Index", "Products");
             else
@@ -85,7 +94,20 @@ namespace LoginRegisterIdentity.Controllers
                 return RedirectToAction("Index", "Products");
             }
         }
-        [HttpPost]
+		[HttpPost]
+		public async Task<IActionResult> DeleteImage(string imagelink)
+		{
+			Image image = await _productRepository.GetImageBylink(imagelink);
+			if (image == null)
+			{
+				return RedirectToAction("Index", "Products");
+			}
+            var result = await _photoService.DeletePhotoAsync(imagelink);
+			_productRepository.DeleteImage(image);
+
+			return RedirectToAction("Index", "Products");
+		}
+		[HttpPost]
         public async Task<IActionResult> Delete(int productId)
         {
             Product product = await _productRepository.GetProductByIdAsync(productId);
@@ -110,8 +132,6 @@ namespace LoginRegisterIdentity.Controllers
                 return RedirectToAction("Index", "Home");
 
             }
-            
-
             Product product = new Product()
             {
                 Name = addProductVM.Name,
@@ -119,8 +139,30 @@ namespace LoginRegisterIdentity.Controllers
                 Price = addProductVM.Price,
                 StockQuantity = addProductVM.StockQuantity,
                 AppUserId = user.Id
+                
             };
-            _productRepository.Add(product);
+			_productRepository.Add(product);
+
+			foreach (var file in addProductVM.Images)
+			{
+				if (file != null && file.Length > 0)
+				{
+					string imageUrl = await _photoService.AddPhotoAsync(file);
+
+					if (!string.IsNullOrEmpty(imageUrl))
+					{
+                        _productRepository.AddImage(
+                            new Image() { 
+                                ImageLink = imageUrl ,
+                                ProductId = product.Id
+                            });
+                        
+						await _userManager.UpdateAsync(user);
+					}
+				}
+			}
+
+			
             return View(addProductVM);
         }
     }
