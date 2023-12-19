@@ -52,7 +52,7 @@
 						<div class="form-row form-group mt-4">
 							<h2 class="col">Add Images</h2>
 							<div class="col">
-								<input asp-for="Images" type="file" class="form-control form-control-lg" placeholder="Image" />
+								<input asp-for="Images" type="file" class="form-control form-control-lg" placeholder="Images" multiple />
 								<span asp-validation-for="Images" class="text-danger"></span>
 							</div>
 						</div>
@@ -171,7 +171,7 @@
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<form method="post" action="@Url.Action("DeleteImage", "Products")">
-											<input type="hidden" name="productId" value="@product" />
+											<input type="hidden" name="imagelink" value="@product" />
 											<button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
 										</form>
 											

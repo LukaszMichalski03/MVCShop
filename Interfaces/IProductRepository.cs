@@ -14,6 +14,7 @@ namespace LoginRegisterIdentity.Interfaces
 		Task<Image> GetImageBylink(string link);
 		bool Update(Product product);
 		bool Delete(Product product);
+		bool DeleteProductsImages(int productId);
 		bool DeleteImage(Image image);
 		
 	}

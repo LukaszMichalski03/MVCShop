@@ -42,6 +42,13 @@ namespace LoginRegisterIdentity.Repositories
 
 			return imageLinks;
 		}
+		public bool DeleteProductsImages(int productId)
+		{
+			var imagesToDelete = _context.Images.Where(i => i.ProductId == productId).ToList();
+
+			_context.Images.RemoveRange(imagesToDelete);
+			return Save();
+		}
 		public async Task<IEnumerable<Product>> GetAllProductsAsync()
 		{
             return await _context.Products.ToListAsync();
@@ -52,9 +59,9 @@ namespace LoginRegisterIdentity.Repositories
             return await _context.Products.Where(p => p.AppUserId == AppUserId).ToListAsync();
         }
 
-        public Task<Product> GetProductByIdAsync(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
 		{
-			return _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+			return await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
 		}
 		public async Task<Image> GetImageBylink(string link)
 		{
@@ -74,5 +81,7 @@ namespace LoginRegisterIdentity.Repositories
 			_context.Update(product);
 			return Save();
 		}
+
+		
 	}
 }

@@ -23,38 +23,38 @@ namespace LoginRegisterIdentity.Controllers
 			this._photoService = photoService;
 		}
 		/// test
-		[HttpGet]
-		public async Task<IActionResult> UserProfile()
-		{
-			var user = await _userManager.GetUserAsync(User);
-			return View(user);
-		}
+		//[HttpGet]
+		//public async Task<IActionResult> UserProfile()
+		//{
+		//	var user = await _userManager.GetUserAsync(User);
+		//	return View(user);
+		//}
 
-		[HttpPost]
-		public async Task<IActionResult> UploadProfilePicture(IFormFile file)
-		{
-			var user = await _userManager.GetUserAsync(User);
+		//[HttpPost]
+		//public async Task<IActionResult> UploadProfilePicture(IFormFile file)
+		//{
+		//	var user = await _userManager.GetUserAsync(User);
 
-			if (file != null && file.Length > 0)
-			{
-				var imageUrl = await _photoService.AddPhotoAsync(file);
+		//	if (file != null && file.Length > 0)
+		//	{
+		//		var imageUrl = await _photoService.AddPhotoAsync(file);
 
-				if (!string.IsNullOrEmpty(imageUrl))
-				{
-					// Usunięcie starego zdjęcia, jeśli istnieje
-					if (!string.IsNullOrEmpty(user.ProfilePictureLink))
-					{
-						await _photoService.DeletePhotoAsync(user.ProfilePictureLink);
-					}
+		//		if (!string.IsNullOrEmpty(imageUrl))
+		//		{
+		//			// Usunięcie starego zdjęcia, jeśli istnieje
+		//			if (!string.IsNullOrEmpty(user.ProfilePictureLink))
+		//			{
+		//				await _photoService.DeletePhotoAsync(user.ProfilePictureLink);
+		//			}
 
-					// Zapis nowego linku do zdjęcia w modelu użytkownika
-					user.ProfilePictureLink = imageUrl;
-					await _userManager.UpdateAsync(user);
-				}
-			}
+		//			// Zapis nowego linku do zdjęcia w modelu użytkownika
+		//			user.ProfilePictureLink = imageUrl;
+		//			await _userManager.UpdateAsync(user);
+		//		}
+		//	}
 
-			return RedirectToAction("UserProfile");
-		}
+		//	return RedirectToAction("UserProfile");
+		//}
 		/// test /// test /// test/// test end
 		[HttpGet]
         [Authorize]

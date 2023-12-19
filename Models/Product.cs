@@ -17,7 +17,8 @@ namespace LoginRegisterIdentity.Models
         [ForeignKey("AppUser")]
         public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
-        public List<Image> Images { get; set; }  
+		
+		public List<Image> Images { get; set; }  
 
     }
 }

@@ -61,7 +61,7 @@ namespace LoginRegisterIdentity.Controllers
             var images = await _productRepository.GetProductsImagesAsync(id);
             ProductVM productVM = new ProductVM()
             {
-                Id = product.Id,
+                
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
@@ -83,10 +83,29 @@ namespace LoginRegisterIdentity.Controllers
                 Id = id,
                 AppUserId = user.Id
             };
+			foreach (var file in addProductVM.Images)
+			{
+				if (file != null && file.Length > 0)
+				{
+					string imageUrl = await _photoService.AddPhotoAsync(file);
 
-            
+					if (!string.IsNullOrEmpty(imageUrl))
+					{
+						_productRepository.AddImage(
+							new Image()
+							{
+								ImageLink = imageUrl,
+								ProductId = product.Id
+							});
 
-            var result = _productRepository.Update(product);
+						await _userManager.UpdateAsync(user);
+					}
+				}
+			}
+
+
+
+			var result = _productRepository.Update(product);
             if(result == true) return RedirectToAction("Index", "Products");
             else
             {
@@ -115,6 +134,7 @@ namespace LoginRegisterIdentity.Controllers
             {
                 return RedirectToAction("Index", "Products");
             }
+            var result = _productRepository.DeleteProductsImages(productId);
             _productRepository.Delete(product);
 
             return RedirectToAction("Index", "Products");
