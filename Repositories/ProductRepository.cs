@@ -23,7 +23,24 @@ namespace LoginRegisterIdentity.Repositories
 			_context.Add(image);
 			return Save();
 		}
+		public bool AddToCard(ShoppingCard item)
+		{
+			_context.Add(item);
+			return Save();
+		}
+		public async Task<IEnumerable<Product>> GetShoppingCardItemsByUserId(string userId)
+		{
+			List<Product> result = new List<Product>();
+            var productsId = await _context.ShoppingCards.Where(x => x.AppUserId == userId).Select(item => item.ProductId).ToListAsync();
+			foreach(var item in productsId)
+			{
+				var product = _context.Products.FirstOrDefault(p => p.Id == item);
+				if (product != null) result.Add(product);
+			}
 
+
+			return result;
+		}
 		public bool Delete(Product product)
 		{
 			_context.Remove(product);

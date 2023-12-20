@@ -24,10 +24,10 @@
                                 <div class="btn-group">
 
                                     <button type="button" class="btn btn-sm btn-outline-dark" onclick="location.href='@Url.Action("Details", "Products", new { id = product.Id })'">Details</button>
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                        <i class="bi-cart-fill me-1"></i>
-                                        Add to cart
-                                    </button>
+                                    <form method="post" action="@Url.Action("AddToShoppingCart", "Home")">
+                                        <input type="hidden" name="productId" value="@product.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">Add to Card</button>
+                                    </form>
                                 </div>
                                 <small class="text-muted">@product.Price zł</small>
                             </div>

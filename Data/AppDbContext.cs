@@ -13,6 +13,7 @@ namespace LoginRegisterIdentity.Data
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<ShoppingCard> ShoppingCards { get; set; }
 		
 	}
 }

@@ -141,6 +141,7 @@ namespace LoginRegisterIdentity.Controllers
         }
         public IActionResult Add()
         {
+
             return View();
         }
         [HttpPost]
