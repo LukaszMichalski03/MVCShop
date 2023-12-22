@@ -28,20 +28,27 @@ namespace LoginRegisterIdentity.Repositories
 			_context.Add(item);
 			return Save();
 		}
-		public async Task<IEnumerable<Product>> GetShoppingCardItemsByUserId(string userId)
+		public async Task<IEnumerable<ShoppingCard>> GetShoppingCardItemsByUserId(string userId)
 		{
 			List<Product> result = new List<Product>();
-            var productsId = await _context.ShoppingCards.Where(x => x.AppUserId == userId).Select(item => item.ProductId).ToListAsync();
-			foreach(var item in productsId)
-			{
-				var product = _context.Products.FirstOrDefault(p => p.Id == item);
-				if (product != null) result.Add(product);
-			}
+            var items = await _context.ShoppingCards.Where(x => x.AppUserId == userId).ToListAsync();
+			//foreach(var item in productsId)
+			//{
+			//	var product = _context.Products.FirstOrDefault(p => p.Id == item);
+			//	if (product != null) result.Add(product);
+			//}
 
 
-			return result;
+			return items;
 		}
-		public bool Delete(Product product)
+        public async Task<ShoppingCard> GetShoppingCartItemByIdAsync(int id)
+        {
+            var item = await _context.ShoppingCards.FirstOrDefaultAsync(x => x.Id == id);
+
+
+            return item;
+        }
+        public bool Delete(Product product)
 		{
 			_context.Remove(product);
 			return Save();
@@ -51,7 +58,12 @@ namespace LoginRegisterIdentity.Repositories
 			_context.Remove(image);
 			return Save();
 		}
-		public async Task<IEnumerable<string>> GetProductsImagesAsync(int productId)
+        public bool DeleteFromCard(ShoppingCard item)
+        {
+            _context.Remove(item);
+            return Save();
+        }
+        public async Task<IEnumerable<string>> GetProductsImagesAsync(int productId)
 		{
 			var imageLinks = await _context.Images.Where(x => x.ProductId == productId)
 				.Select(image => image.ImageLink)
@@ -68,7 +80,7 @@ namespace LoginRegisterIdentity.Repositories
 		}
 		public async Task<IEnumerable<Product>> GetAllProductsAsync()
 		{
-            return await _context.Products.ToListAsync();
+            return await _context.Products.Include(p => p.Images).ToListAsync();
         }
 
         public async Task<IEnumerable<Product>> GetUsersProductsAsync(string AppUserId)
@@ -76,8 +88,12 @@ namespace LoginRegisterIdentity.Repositories
             return await _context.Products.Where(p => p.AppUserId == AppUserId).ToListAsync();
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<Product> GetProductByIdAsync(int? id)
 		{
+			if (id == null)
+			{
+				return null;
+			}
 			return await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
 		}
 		public async Task<Image> GetImageBylink(string link)
@@ -99,6 +115,6 @@ namespace LoginRegisterIdentity.Repositories
 			return Save();
 		}
 
-		
-	}
+        
+    }
 }

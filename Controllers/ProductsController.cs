@@ -4,6 +4,7 @@ using LoginRegisterIdentity.Models;
 using LoginRegisterIdentity.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LoginRegisterIdentity.Controllers
 {
@@ -83,25 +84,29 @@ namespace LoginRegisterIdentity.Controllers
                 Id = id,
                 AppUserId = user.Id
             };
-			foreach (var file in addProductVM.Images)
-			{
-				if (file != null && file.Length > 0)
-				{
-					string imageUrl = await _photoService.AddPhotoAsync(file);
+            if(addProductVM.Images != null && addProductVM.Images.Any())
+            {
+                foreach (var file in addProductVM.Images)
+                {
+                    if (file != null && file.Length > 0)
+                    {
+                        string imageUrl = await _photoService.AddPhotoAsync(file);
 
-					if (!string.IsNullOrEmpty(imageUrl))
-					{
-						_productRepository.AddImage(
-							new Image()
-							{
-								ImageLink = imageUrl,
-								ProductId = product.Id
-							});
+                        if (!string.IsNullOrEmpty(imageUrl))
+                        {
+                            _productRepository.AddImage(
+                                new Image()
+                                {
+                                    ImageLink = imageUrl,
+                                    ProductId = product.Id
+                                });
 
-						await _userManager.UpdateAsync(user);
-					}
-				}
-			}
+                            await _userManager.UpdateAsync(user);
+                        }
+                    }
+                }
+            }
+			
 
 
 

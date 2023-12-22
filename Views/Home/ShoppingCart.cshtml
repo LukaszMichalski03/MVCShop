@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Product>
+﻿@using LoginRegisterIdentity.ViewModels
+@model List<ShoppingCartVM>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,19 +19,29 @@
                                 <th scope="col">Format</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Price</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(var product in Model)
+                            @foreach(var item in Model)
                             {
                                 <tr>
                                     <th scope="row">
                                         <div class="d-flex align-items-center">
-                                            <img src="https://i.imgur.com/2DsA49b.webp" class="img-fluid rounded-3"
-                                                 style="width: 120px;" alt="Book">
+                                            @if (item.Product.Images != null && item.Product.Images.Any() && item.Product.Images.Count > 0)
+                                            {
+                                                <img src="@item.Product.Images[0]" class="img-fluid rounded-3"
+                                                style="width: 120px;" alt="Book">
+                                            }
+                                            else
+                                            {
+                                                <img src="https://photoblobcontainertest.blob.core.windows.net/democontainer1/c76bed9f-4371-4bfc-8276-9da835dc4d85.png" class="img-fluid rounded-3"
+                                                     style="width: 120px;" alt="Book">
+                                            }
+                                            
                                             <div class="flex-column ms-4">
                                                 <p class="mb-2">Thinking, Fast and Slow</p>
-                                                <p class="mb-0">@product.Name</p>
+                                                <p class="mb-0">@item.Product.Name</p>
                                             </div>
                                         </div>
                                     </th>
@@ -39,22 +50,29 @@
                                     </td>
                                     <td class="align-middle">
                                         <div class="d-flex flex-row">
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
+                                            
 
                                             <input id="form1" min="0" name="quantity" value="2" type="number"
                                                    class="form-control form-control-sm" style="width: 50px;" />
 
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
+                                            
                                         </div>
                                     </td>
                                     <td class="align-middle">
-                                        <p class="mb-0" style="font-weight: 500;">@product.Price zł</p>
+                                        <p class="mb-0" style="font-weight: 500;">@item.Product.Price zł</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <form method="post" action="@Url.Action("DeleteFromCart", "Home")">
+                                            <input type="hidden" name="itemId" value="@item.ShoppingCartId" />
+                                            <button class="btn btn-link px-2"
+                                                    >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                        
                                     </td>
                                 </tr>
                             }

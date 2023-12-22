@@ -1,5 +1,6 @@
 using LoginRegisterIdentity.Interfaces;
 using LoginRegisterIdentity.Models;
+using LoginRegisterIdentity.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,7 @@ namespace LoginRegisterIdentity.Controllers
         [HttpGet]
         public async Task<IActionResult> ShoppingCart()
         {
+            List<ShoppingCartVM> shoppingCartVMs = new List<ShoppingCartVM>();
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -54,7 +56,15 @@ namespace LoginRegisterIdentity.Controllers
 
             }
             var cardItems = await _productRepository.GetShoppingCardItemsByUserId(user.Id);
-            return View(cardItems);
+            foreach (var item in cardItems)
+            {
+                shoppingCartVMs.Add(new ShoppingCartVM
+                {
+                    ShoppingCartId = item.Id,
+                    Product = await _productRepository.GetProductByIdAsync(item.ProductId),
+                });
+            }
+            return View(shoppingCartVMs);
         }
         [HttpPost]
         public async Task<IActionResult> AddToShoppingCart(int productId)
@@ -62,7 +72,7 @@ namespace LoginRegisterIdentity.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
 
             }
             
@@ -70,9 +80,21 @@ namespace LoginRegisterIdentity.Controllers
             {
                 AppUserId = user.Id,
                 ProductId = productId,
+                
             };
             _productRepository.AddToCard(item);
             return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteFromCart(int itemId)
+        {
+            
+            var item = await _productRepository.GetShoppingCartItemByIdAsync(itemId);
+            _productRepository.DeleteFromCard(item);
+           
+
+            
+            return RedirectToAction("ShoppingCart", "Home");
         }
     }
 }
