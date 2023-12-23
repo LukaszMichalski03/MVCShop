@@ -8,7 +8,20 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."></div>
+            <div class="col-md-6">
+                
+                @if (Model.Images != null && Model.Images.Any() && Model.Images.Count > 0)
+                {
+
+                    <img src="@Model.Images[0].ImageLink" class="card-img-top mb-5 mb-md-0" style="height: auto; width: auto; display: block;"
+                         alt="Book">
+                }
+                else
+                {
+                    <img src="https://photoblobcontainertest.blob.core.windows.net/democontainer1/c76bed9f-4371-4bfc-8276-9da835dc4d85.png" class="card-img-top mb-5 mb-md-0" style="height: auto; width: auto; display: block;"
+                         alt="Book">
+                }
+                </div>
             <div class="col-md-6">
                 <div class="small mb-1">In Stock: @Model.StockQuantity</div>
                 <h1 class="display-5 fw-bolder">@Model.Name</h1>
@@ -18,13 +31,13 @@
                 </div>
                 <p class="lead">@Model.Description</p>
                 <div class="d-flex">
-                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem">
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                        <i class="bi-cart-fill me-1"></i>
+                    <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem">
+                    <button class="btn btn-outline-dark flex-shrink-0 " type="button">
+                        <i class="bi-cart-fill me-1 "></i>
                         Add to cart
                     </button>
                 </div>
-                <button type="button" id="submit" name="submit" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Home")'">Cancel</button>
+                <button type="button" id="submit" name="submit" class="btn btn-secondary mt-4" onclick="location.href='@Url.Action("Index", "Home")'">Cancel</button>
             </div>
         </div>
     </div>

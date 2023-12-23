@@ -110,7 +110,7 @@ namespace LoginRegisterIdentity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -118,6 +118,27 @@ namespace LoginRegisterIdentity.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("LoginRegisterIdentity.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.Product", b =>
@@ -138,15 +159,20 @@ namespace LoginRegisterIdentity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("StockQuantity")
+                    b.Property<int?>("StockQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Products");
                 });
@@ -311,9 +337,20 @@ namespace LoginRegisterIdentity.Migrations
                 {
                     b.HasOne("LoginRegisterIdentity.Models.Product", "Product")
                         .WithMany("Images")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("LoginRegisterIdentity.Models.Order", b =>
+                {
+                    b.HasOne("LoginRegisterIdentity.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.Product", b =>
@@ -322,7 +359,13 @@ namespace LoginRegisterIdentity.Migrations
                         .WithMany("ListedProducts")
                         .HasForeignKey("AppUserId");
 
+                    b.HasOne("LoginRegisterIdentity.Models.Order", "Order")
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId");
+
                     b.Navigation("AppUser");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.ShoppingCard", b =>
@@ -332,7 +375,7 @@ namespace LoginRegisterIdentity.Migrations
                         .HasForeignKey("AppUserId");
 
                     b.HasOne("LoginRegisterIdentity.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("ShoppingCards")
                         .HasForeignKey("ProductId");
 
                     b.Navigation("AppUser");
@@ -398,9 +441,16 @@ namespace LoginRegisterIdentity.Migrations
                     b.Navigation("ShoppingCards");
                 });
 
+            modelBuilder.Entity("LoginRegisterIdentity.Models.Order", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("LoginRegisterIdentity.Models.Product", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("ShoppingCards");
                 });
 #pragma warning restore 612, 618
         }

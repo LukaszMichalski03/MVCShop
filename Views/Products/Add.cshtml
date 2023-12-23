@@ -16,32 +16,32 @@
 					<div class="card-body">
 						<div class="row gutters">
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<h6 class="mb-2 text-primary">Personal Details</h6>
+								<h1 class="mb-2 text-primary">Add Product</h1>
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div class="form-group">
-									<label asp-for="Name">Name</label>
+									<label class="fs-5" asp-for="Name">Name</label>
 									<input asp-for="Name" name="Name" class="form-control" placeholder="Enter name">
 									<span asp-validation-for="Name" class="text-danger"></span>
 								</div>
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div class="form-group">
-									<label asp-for="Description">Description</label>
+									<label class="fs-5" asp-for="Description">Description</label>
 									<input asp-for="Description" class="form-control" placeholder="Enter Description">
 									<span asp-validation-for="Description" class="text-danger"></span>
 								</div>
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div class="form-group">
-									<label asp-for="Price">Price</label>
+									<label class="fs-5" asp-for="Price">Price</label>
 									<input asp-for="Price" class="form-control" placeholder="Enter Price" >
 									<span asp-validation-for="Price" class="text-danger"></span>
 								</div>
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div class="form-group">
-									<label asp-for="StockQuantity">StockQuantity</label>
+									<label class="fs-5" asp-for="StockQuantity">StockQuantity</label>
 									<input asp-for="StockQuantity" class="form-control" placeholder="Enter StockQuantity">
 									<span asp-validation-for="StockQuantity" class="text-danger"></span>
 								</div>
@@ -49,6 +49,7 @@
 						</div>
 						<div class="form-row form-group mt-4">
 							<div class="col">
+								<label class="fs-5">Add images </label>
 								<input asp-for="Images" type="file" class="form-control form-control-lg" placeholder="Images" multiple />
 								<span asp-validation-for="Images" class="text-danger"></span>
 							</div>

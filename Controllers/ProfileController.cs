@@ -115,8 +115,8 @@ namespace LoginRegisterIdentity.Controllers
 			
 
             _profileRepository.Update(user);
-			//return RedirectToAction("Index", "Home");
-			return View(profileVM);
+			return RedirectToAction("Index", "Profile");
+			//return View(profileVM);
         }
 		[HttpPost, Authorize]
 		public async Task<IActionResult> Delete()

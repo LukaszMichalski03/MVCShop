@@ -158,38 +158,47 @@ namespace LoginRegisterIdentity.Controllers
                 return RedirectToAction("Index", "Home");
 
             }
-            Product product = new Product()
+            if(addProductVM.Name != null && addProductVM.Price != 0)
             {
-                Name = addProductVM.Name,
-                Description = addProductVM.Description,
-                Price = addProductVM.Price,
-                StockQuantity = addProductVM.StockQuantity,
-                AppUserId = user.Id
-                
-            };
-			_productRepository.Add(product);
-
-			foreach (var file in addProductVM.Images)
-			{
-				if (file != null && file.Length > 0)
+				Product product = new Product()
 				{
-					string imageUrl = await _photoService.AddPhotoAsync(file);
+					Name = addProductVM.Name,
+					Description = addProductVM.Description,
+					Price = addProductVM.Price,
+					StockQuantity = addProductVM.StockQuantity,
+					AppUserId = user.Id
 
-					if (!string.IsNullOrEmpty(imageUrl))
+				};
+
+				_productRepository.Add(product);
+                if(addProductVM.Images != null && addProductVM.Images.Any())
+                {
+					foreach (var file in addProductVM.Images)
 					{
-                        _productRepository.AddImage(
-                            new Image() { 
-                                ImageLink = imageUrl ,
-                                ProductId = product.Id
-                            });
-                        
-						await _userManager.UpdateAsync(user);
+						if (file != null && file.Length > 0)
+						{
+							string imageUrl = await _photoService.AddPhotoAsync(file);
+
+							if (!string.IsNullOrEmpty(imageUrl))
+							{
+								_productRepository.AddImage(
+									new Image()
+									{
+										ImageLink = imageUrl,
+										ProductId = product.Id
+									});
+
+								await _userManager.UpdateAsync(user);
+							}
+						}
 					}
 				}
+				
 			}
 
-			
-            return View(addProductVM);
+
+            return RedirectToAction("Add", "Products");
+            //return View(addProductVM);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace LoginRegisterIdentity.Models
 		public int Id { get; set; }
         [Required]
         public string? ImageLink { get; set; }
-		public int? ProductId { get; set; }
-		public Product? Product { get; set; }
+		public int ProductId { get; set; }
+		public Product Product { get; set; }
 	}
 }

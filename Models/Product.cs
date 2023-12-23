@@ -13,12 +13,18 @@ namespace LoginRegisterIdentity.Models
         public string? Description { get; set; }
         [Required]
         public double Price { get; set; }
-        public int StockQuantity { get; set; }
+        public int? StockQuantity { get; set; }
         [ForeignKey("AppUser")]
         public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
 		
-		public List<Image> Images { get; set; }  
+		public List<Image>? Images { get; set; }
 
+        public List<ShoppingCard>? ShoppingCards { get; set; }
+
+
+        public int? OrderId { get; set; }        
+        [ForeignKey("OrderId")]
+        public Order? Order { get; set; }
     }
 }

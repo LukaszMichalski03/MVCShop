@@ -10,7 +10,7 @@ namespace LoginRegisterIdentity.ViewModels
         public string Description { get; set; }
         [Required]
         public double Price { get; set; }
-        public int StockQuantity { get; set; }
+        public int? StockQuantity { get; set; }
 		public IEnumerable<IFormFile?> Images { get; set; }
 		public IEnumerable<string?> ImagesLinks { get; set; }
 

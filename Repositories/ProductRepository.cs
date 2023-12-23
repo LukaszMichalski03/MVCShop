@@ -85,7 +85,7 @@ namespace LoginRegisterIdentity.Repositories
 
         public async Task<IEnumerable<Product>> GetUsersProductsAsync(string AppUserId)
         {
-            return await _context.Products.Where(p => p.AppUserId == AppUserId).ToListAsync();
+            return await _context.Products.Where(p => p.AppUserId == AppUserId).Include(p => p.Images).ToListAsync();
         }
 
         public async Task<Product> GetProductByIdAsync(int? id)
@@ -94,7 +94,7 @@ namespace LoginRegisterIdentity.Repositories
 			{
 				return null;
 			}
-			return await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+			return await _context.Products.Include(p => p.Images).FirstOrDefaultAsync(x => x.Id == id);
 		}
 		public async Task<Image> GetImageBylink(string link)
 		{
