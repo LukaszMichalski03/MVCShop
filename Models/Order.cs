@@ -12,6 +12,6 @@ namespace LoginRegisterIdentity.Models
         public AppUser? User { get; set; }
         public string? UserId { get; set; }
         [Required]
-        public List<Product> Products { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; }
     }
 }

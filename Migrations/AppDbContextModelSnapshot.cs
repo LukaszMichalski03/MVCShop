@@ -141,6 +141,29 @@ namespace LoginRegisterIdentity.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("LoginRegisterIdentity.Models.OrderProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProduct");
+                });
+
             modelBuilder.Entity("LoginRegisterIdentity.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -159,9 +182,6 @@ namespace LoginRegisterIdentity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -171,8 +191,6 @@ namespace LoginRegisterIdentity.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Products");
                 });
@@ -353,19 +371,32 @@ namespace LoginRegisterIdentity.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("LoginRegisterIdentity.Models.OrderProduct", b =>
+                {
+                    b.HasOne("LoginRegisterIdentity.Models.Order", "Order")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LoginRegisterIdentity.Models.Product", "Product")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("LoginRegisterIdentity.Models.Product", b =>
                 {
                     b.HasOne("LoginRegisterIdentity.Models.AppUser", "AppUser")
                         .WithMany("ListedProducts")
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("LoginRegisterIdentity.Models.Order", "Order")
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
-
                     b.Navigation("AppUser");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.ShoppingCard", b =>
@@ -443,12 +474,14 @@ namespace LoginRegisterIdentity.Migrations
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.Order", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("OrderProducts");
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.Product", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("OrderProducts");
 
                     b.Navigation("ShoppingCards");
                 });

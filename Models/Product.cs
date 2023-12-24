@@ -23,8 +23,6 @@ namespace LoginRegisterIdentity.Models
         public List<ShoppingCard>? ShoppingCards { get; set; }
 
 
-        public int? OrderId { get; set; }        
-        [ForeignKey("OrderId")]
-        public Order? Order { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; }
     }
 }

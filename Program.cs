@@ -24,6 +24,7 @@ namespace LoginRegisterIdentity
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 			builder.Services.AddScoped<IProductRepository, ProductRepository>();
+			builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 			builder.Services.AddScoped<IPhotoService, AzureRepository>();
 			builder.Services.AddDbContext<AppDbContext>(
 				options => options.UseSqlServer(connectionString)

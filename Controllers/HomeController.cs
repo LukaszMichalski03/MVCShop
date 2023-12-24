@@ -16,12 +16,14 @@ namespace LoginRegisterIdentity.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<AppUser> _userManager;
         private readonly IProductRepository _productRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<AppUser> userManager , IProductRepository productRepository)
+        public HomeController(ILogger<HomeController> logger, UserManager<AppUser> userManager , IProductRepository productRepository, IOrderRepository orderRepository)
         {
            _logger = logger;
             this._userManager = userManager;
             _productRepository = productRepository;
+            this._orderRepository = orderRepository;
         }
         //public async IActionResult Index()
         //{
@@ -83,7 +85,15 @@ namespace LoginRegisterIdentity.Controllers
                 
             };
             _productRepository.AddToCard(item);
-            return RedirectToAction("Index", "Home");
+            return NoContent();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder(ShoppingCartVM shoppingCartVM)
+        {
+
+
+            /////////////////////////////////////// Zrobiæ jutro!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return View(shoppingCartVM);
         }
         [HttpPost]
         public async Task<IActionResult> DeleteFromCart(int itemId)
