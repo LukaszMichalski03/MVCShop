@@ -40,7 +40,7 @@ namespace LoginRegisterIdentity.Migrations
                 oldNullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "OrdersController",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -65,7 +65,7 @@ namespace LoginRegisterIdentity.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
-                table: "Orders",
+                table: "OrdersController",
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
@@ -80,7 +80,7 @@ namespace LoginRegisterIdentity.Migrations
                 name: "FK_Products_Orders_OrderId",
                 table: "Products",
                 column: "OrderId",
-                principalTable: "Orders",
+                principalTable: "OrdersController",
                 principalColumn: "Id");
         }
 
@@ -96,7 +96,7 @@ namespace LoginRegisterIdentity.Migrations
                 table: "Products");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "OrdersController");
 
             migrationBuilder.DropIndex(
                 name: "IX_Products_OrderId",

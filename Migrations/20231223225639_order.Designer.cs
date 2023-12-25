@@ -141,7 +141,7 @@ namespace LoginRegisterIdentity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("OrdersController");
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.Product", b =>

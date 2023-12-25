@@ -37,7 +37,7 @@ namespace LoginRegisterIdentity.Migrations
                     table.ForeignKey(
                         name: "FK_OrderProduct_Orders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Orders",
+                        principalTable: "OrdersController",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -80,7 +80,7 @@ namespace LoginRegisterIdentity.Migrations
                 name: "FK_Products_Orders_OrderId",
                 table: "Products",
                 column: "OrderId",
-                principalTable: "Orders",
+                principalTable: "OrdersController",
                 principalColumn: "Id");
         }
     }

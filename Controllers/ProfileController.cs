@@ -10,13 +10,15 @@ namespace LoginRegisterIdentity.Controllers
 {
     public class ProfileController : Controller
     {
+        private readonly IOrderRepository _orderRepository;
         private readonly IProfileRepository _profileRepository;
 		private readonly UserManager<AppUser> _userManager;
 		private readonly SignInManager<AppUser> _signInManager;
 		private readonly IPhotoService _photoService;
 
-		public ProfileController(IProfileRepository profileRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IPhotoService photoService)
+		public ProfileController(IOrderRepository orderRepository ,IProfileRepository profileRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IPhotoService photoService)
         {
+            this._orderRepository = orderRepository;
             this._profileRepository = profileRepository;
 			this._userManager = userManager;
 			this._signInManager = signInManager;
@@ -131,6 +133,18 @@ namespace LoginRegisterIdentity.Controllers
 			await _signInManager.SignOutAsync();
 			
 			return RedirectToAction("Index", "Home");
+		}
+		[HttpGet]
+		public async Task<IActionResult> Orders()
+		{
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+            IEnumerable<Order> orders = await _orderRepository.GetOrdersByUser(user.Id);
+            return View(orders);
 		}
     }
 }
