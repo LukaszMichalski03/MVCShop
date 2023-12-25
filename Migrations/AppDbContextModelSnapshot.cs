@@ -117,7 +117,7 @@ namespace LoginRegisterIdentity.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.Order", b =>
@@ -138,7 +138,7 @@ namespace LoginRegisterIdentity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OrdersController");
+                    b.ToTable("OrdersController", (string)null);
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.OrderProduct", b =>
@@ -161,7 +161,7 @@ namespace LoginRegisterIdentity.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderProduct", (string)null);
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.Product", b =>
@@ -192,7 +192,7 @@ namespace LoginRegisterIdentity.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("LoginRegisterIdentity.Models.ShoppingCard", b =>
@@ -215,7 +215,7 @@ namespace LoginRegisterIdentity.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ShoppingCards");
+                    b.ToTable("ShoppingCards", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

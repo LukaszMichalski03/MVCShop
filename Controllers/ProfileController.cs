@@ -134,17 +134,6 @@ namespace LoginRegisterIdentity.Controllers
 			
 			return RedirectToAction("Index", "Home");
 		}
-		[HttpGet]
-		public async Task<IActionResult> Orders()
-		{
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return RedirectToAction("Index", "Home");
-
-            }
-            IEnumerable<Order> orders = await _orderRepository.GetOrdersByUser(user.Id);
-            return View(orders);
-		}
+		
     }
 }

@@ -2,6 +2,7 @@
 using LoginRegisterIdentity.Interfaces;
 using LoginRegisterIdentity.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 
 namespace LoginRegisterIdentity.Repositories
 {
@@ -19,9 +20,15 @@ namespace LoginRegisterIdentity.Repositories
             return Save();
         }
 
-        public Task<IEnumerable<Order>> GetOrdersByUser(string id)
+        public async Task<IEnumerable<Order>> GetOrdersByUser(string id)
         {
-            throw new NotImplementedException();
+            List<Order> result = await _context.Orders
+                .Where(o => o.UserId == id)
+                .Include(o => o.OrderProducts)
+                    .ThenInclude(op => op.Product)
+                .ToListAsync();
+
+            return result;
         }
         public bool Save()
         {

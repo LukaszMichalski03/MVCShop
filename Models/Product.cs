@@ -23,6 +23,6 @@ namespace LoginRegisterIdentity.Models
         public List<ShoppingCard>? ShoppingCards { get; set; }
 
 
-        public List<OrderProduct> OrderProducts { get; set; }
+        public List<OrderProduct>? OrderProducts { get; set; }
     }
 }
