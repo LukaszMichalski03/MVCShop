@@ -22,6 +22,7 @@ namespace LoginRegisterIdentity.Interfaces
 		bool Update(Product product);
 		bool Delete(Product product);
 		bool DeleteProductsImages(int productId);
+		bool DeleteShoppinngCart(ShoppingCard shoppinngcart);
 		bool DeleteImage(Image image);
         bool DeleteFromCard(ShoppingCard item);
     }

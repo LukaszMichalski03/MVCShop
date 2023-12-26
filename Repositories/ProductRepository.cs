@@ -115,6 +115,11 @@ namespace LoginRegisterIdentity.Repositories
 			return Save();
 		}
 
-        
+        public bool DeleteShoppinngCart(ShoppingCard shoppinngcart)
+        {
+			_context.ShoppingCards.Remove(shoppinngcart);
+
+			return Save();
+        }
     }
 }

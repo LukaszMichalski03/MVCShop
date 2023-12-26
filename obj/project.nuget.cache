@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dRZLEc2dlzAnXQsf8EG47mmSn6CZTfZkAlKf2r7OfnwfbjNHxxIZ/JY0nBAbMgANYrHtYmfBdiXrPviOQMznWQ==",
+  "dgSpecHash": "S8RnzNWUj5DozfL4vHabQ8TPo7csGvYGMR7yN6zqb5jvwhPVbILiy5b+34C1PntrdsjLwZySw7YogTvJaHHBvg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Łukasz\\Desktop\\kursy\\C#\\aspNetMVC\\LoginRegisterIdentity\\LoginRegisterIdentity.csproj",
   "expectedPackageFiles": [
@@ -54,6 +54,7 @@
     "C:\\Users\\Łukasz\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\microsoft.visualstudio.azure.containers.tools.targets.1.19.5.nupkg.sha512",
     "C:\\Users\\Łukasz\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Łukasz\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\Łukasz\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Łukasz\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\Łukasz\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\Łukasz\\.nuget\\packages\\system.composition\\6.0.0\\system.composition.6.0.0.nupkg.sha512",

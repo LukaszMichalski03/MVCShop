@@ -20,12 +20,20 @@ namespace LoginRegisterIdentity.Repositories
             return Save();
         }
 
+        public bool AddOrderProduct(OrderProduct orderProduct)
+        {
+            _context.OrderProduct.Add(orderProduct);
+
+            return Save();
+        }
+
         public async Task<IEnumerable<Order>> GetOrdersByUser(string id)
         {
             List<Order> result = await _context.Orders
                 .Where(o => o.UserId == id)
                 .Include(o => o.OrderProducts)
                     .ThenInclude(op => op.Product)
+                .Include(o => o.User)
                 .ToListAsync();
 
             return result;

@@ -139,3 +139,4 @@ C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\obj\Debug\net8
 C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\bin\Debug\net8.0\Azure.Storage.Blobs.dll
 C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\bin\Debug\net8.0\Azure.Storage.Common.dll
 C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\bin\Debug\net8.0\System.IO.Hashing.dll
+C:\Users\Łukasz\Desktop\kursy\C#\aspNetMVC\LoginRegisterIdentity\bin\Debug\net8.0\Newtonsoft.Json.dll

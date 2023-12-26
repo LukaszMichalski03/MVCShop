@@ -10,11 +10,11 @@
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-10 col-xl-8">
-        @* @foreach (var order in Model)
-        { *@
+        @foreach (var order in Model)
+        {
                     <div class="card" style="border-radius: 10px;">
                         <div class="card-header px-4 py-5">
-                            <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #0d6efd;">Anna</span>!</h5>
+                            <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #0d6efd;">@order.User.Name</span>!</h5>
                         </div>
                         <div class="card-body p-4">
                             <!-- odtąd foreach orderów-->

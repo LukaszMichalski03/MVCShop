@@ -170,13 +170,25 @@
                                     <p class="mb-2">Total (tax included)</p>
                                     <p class="mb-2">$26.48</p>
                                 </div>
-
-                                <button type="button" class="btn btn-primary btn-block btn-lg">
-                                    <div class="d-flex justify-content-between">
-                                        <span>Checkout</span>
-                                        <span>$26.48</span>
-                                    </div>
-                                </button>
+                                <form method="post" action="@Url.Action("Add", "Orders")">
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        <input type="hidden" name="shoppingCartVMs[@i].ShoppingCartId" value="@Model[i].ShoppingCartId" />
+                                        <input type="hidden" name="shoppingCartVMs[@i].Product.Id" value="@Model[i].Product.Id" />
+                                        <!-- Dodaj inne właściwości, które chcesz przesłać -->
+                                    }
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                                        <div class="d-flex justify-content-between">
+                                            <span>Checkout</span>
+                                            <span>$26.48</span>
+                                        </div>
+                                    </button>
+                                </form>
+                                
+                                @* <form method="post" action="@Url.Action("Delete", "Products")">
+                                    <input type="hidden" name="productId" value="@product.Id" />
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                </form> *@
 
                             </div>
                         </div>

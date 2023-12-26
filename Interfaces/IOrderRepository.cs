@@ -6,6 +6,7 @@ namespace LoginRegisterIdentity.Interfaces
     {
         public Task<IEnumerable<Order>> GetOrdersByUser(string id);
         public bool Add (Order order);
+        public bool AddOrderProduct (OrderProduct orderProduct);
         public bool Save ();
         
     }
